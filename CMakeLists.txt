@@ -10,13 +10,10 @@ set(
 
 # Add all files from a src folder
 set(SOURCE_FILES 
-		src/main.cpp
-		src/Rigel/Renderer.cpp
-		src/Rigel/Renderer.h)
+		src/main.cpp)
 
 # Add GLFW
 find_package(glfw3 3.2 REQUIRED)
-find_package(Vulkan REQUIRED)
 
 # Flags for debug build
 set(
@@ -38,5 +35,3 @@ add_executable(${BIN_NAME} ${SOURCE_FILES})
 # Link dependencies
 target_link_libraries(${BIN_NAME} glfw)
 target_link_libraries(${BIN_NAME} vulkan)
-
-target_link_libraries(${BIN_NAME} Vulkan::Vulkan)
