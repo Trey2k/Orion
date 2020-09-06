@@ -18,7 +18,7 @@ find_package(glfw3 3.2 REQUIRED)
 # Flags for debug build
 set(
 	CMAKE_CXX_FLAGS_DEBUG 
-	"${CMAKE_CXX_FLAGS_DEBUG} -d -Wall"
+	"${CMAKE_CXX_FLAGS_DEBUG} -Wall"
 )
 # Flags for Release build
 set(
@@ -27,11 +27,18 @@ set(
 )
 
 # Set C++11
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Setup binary output
 add_executable(${BIN_NAME} ${SOURCE_FILES})
 
 # Link dependencies
 target_link_libraries(${BIN_NAME} glfw)
-target_link_libraries(${BIN_NAME} vulkan)
+
+if (WIN32)
+   set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_WIN32_KHR)
+endif()
+
+add_subdirectory(includes/volk)
+target_link_libraries(${BIN_NAME} volk_headers)
